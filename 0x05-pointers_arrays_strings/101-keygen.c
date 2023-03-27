@@ -1,50 +1,34 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 /**
- * main - check the code
- *
- * Return: Always 0.
+ * main - program that generates random valid
+ * passwords for the program 101-crackme
+ * Return: Always 0 (Success)
  */
 int main(void)
 {
-char pass[84];
-int i = 0, sum = 0;
-int diff_h1, diff_h2;
+	int pass[100];
+	int i, sum, n;
 
-srand(time(0));
-while (sum < 2772)
-{
-pass[i] = 33 + rand() % 94;
-sum += pass[i++];
-}
-pass[i] = '\0';
+	sum = 0;	
 
-if (sum != 2772)
-{
-diff_h1 = (sum - 2772) / 2;
-diff_h2 = (sum - 2772) / 2;
-if ((sum - 2772) % 2 != 0)
-diff_h1++;
-for (i = 0; pass[i]; i++)
-{
-if (pass[i] >= (33 + diff_h1))
-{
-pass[i] -= diff_h1;
-break;
-}
-}
-for (i = 0; pass[i]; i++)
-{
-if (pass[i] >= (33 + diff_h2))
-{
-pass[i] -= diff_h2;
-break;
-}
-}
-}
-printf("%s", pass);
-return (0);
+	srand(time(NULL));
+
+	for (i = 0; i < 100; i++)
+	{
+		pass[i] = rand() % 78;
+		sum += (pass[i] + '0');
+		putchar(pass[i] + '0');
+		if ((2772 - sum) - '0' < 78)
+		{
+			n = 2772 - sum - '0';
+			sum += n;
+			putchar(n + '0');
+			break;
+		}
+	}
+
+	return (0);
 }
